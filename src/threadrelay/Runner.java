@@ -11,24 +11,27 @@ package threadrelay;
 public class Runner extends Thread{
     private int v;
     private Staffetta s;
+    private String n;
     
-    public Runner(Staffetta s){
+    public Runner(Staffetta s, String n){
         v = 0;
         this.s = s;
+        this.n = n;
     }
     
-    public void run(){
-        v++;
+    public String getNome(){
+        return n;
     }
+    
     
     public int getValue(){
         return v;
     }
     
     @Override
-    public void start(){
+    public void run(){
         try {
-            s.run(this);
+            s.run(n);
         } catch (InterruptedException ex) {
             System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

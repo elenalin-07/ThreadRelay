@@ -14,21 +14,19 @@ public class Staffetta {
     public Staffetta(){
         stato = false;
     }
-    public void run(Runner r) throws InterruptedException{
+    public void run(String n) throws InterruptedException{
         while (stato) {
+            System.out.println("t" + n + "in attessa");
             wait();
         }
 
         stato = true;
-
-        while (r.getValue() < 90) {
-            r.wait(500);
-            r.run();
-        }
+        System.out.println("t" + n + "in corsa");
     }
     
     public void pass(){
         stato = false;
+        System.out.println("staffetta passata");
         notifyAll();
     }
 }

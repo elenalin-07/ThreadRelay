@@ -14,7 +14,17 @@ public class ThreadRelay {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Staffetta s = new Staffetta();
+        
+        Runner r1 = new Runner(s, "1");
+        Runner r2 = new Runner(s, "2");
+        Runner r3 = new Runner(s, "3");
+        Runner r4 = new Runner(s, "4");
+        
+        r1.start();
+        r2.start();
+        r3.start();
+        r4.start();
     }
     
 }
