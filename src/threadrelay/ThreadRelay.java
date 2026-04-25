@@ -14,12 +14,13 @@ public class ThreadRelay {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Staffetta s = new Staffetta();
+        Testimone t = new Testimone(1);
+        ThreadManager tm = new ThreadManager(t, 4);
         
-        Runner r1 = new Runner(s, "1");
-        Runner r2 = new Runner(s, "2");
-        Runner r3 = new Runner(s, "3");
-        Runner r4 = new Runner(s, "4");
+        Runner r1 = new Runner(1, tm);
+        Runner r2 = new Runner(2, tm);
+        Runner r3 = new Runner(3, tm);
+        Runner r4 = new Runner(4, tm);
         
         r1.start();
         r2.start();

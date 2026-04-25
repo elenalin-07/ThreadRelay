@@ -9,18 +9,17 @@ package threadrelay;
  * @author lin.elena
  */
 public class Runner extends Thread{
-    private int v;
-    private Staffetta s;
-    private String n;
+    private int v, id;
+    private ThreadManager tm;
     
-    public Runner(Staffetta s, String n){
+    public Runner(int id, ThreadManager tm){
         v = 0;
-        this.s = s;
-        this.n = n;
+        this.id = id;
+        this.tm = tm;
     }
     
-    public String getNome(){
-        return n;
+    public int getid(){
+        return id;
     }
     
     
@@ -30,11 +29,23 @@ public class Runner extends Thread{
     
     @Override
     public void run(){
-        try {
-            s.run(n);
-        } catch (InterruptedException ex) {
-            System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        for (int i = 0; i < 3; i++) {
+            try {
+                tm.attendi(id);
+            } catch (InterruptedException ex) {
+                System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+
+            System.out.println("Runner " + id + " corre...");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Runner " + id + " passa il testimone");
+
+            tm.passa();
         }
-        s.pass();
     }
 }

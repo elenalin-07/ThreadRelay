@@ -11,7 +11,7 @@ package threadrelay;
 public class Form extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
-    private Staffetta s;
+    private Testimone s;
     private Runner r1, r2, r3, r4;
     /**
      * Creates new form Form
