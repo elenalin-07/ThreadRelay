@@ -4,6 +4,10 @@
  */
 package threadrelay;
 
+import java.util.ArrayList;
+import javax.swing.JProgressBar;
+import javax.swing.Timer;
+
 /**
  *
  * @author lin.elena
@@ -11,14 +15,40 @@ package threadrelay;
 public class Form extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
-    private Testimone s;
+    private Testimone t;
     private Runner r1, r2, r3, r4;
+    private ThreadManager tm;
+    private ArrayList<Runner> runners;
+    private ArrayList<JProgressBar> bars;
+    
     /**
      * Creates new form Form
      */
     public Form() {
         initComponents();
         
+        t = new Testimone(1);
+        ThreadManager tm = new ThreadManager(t, 4);
+        
+        r1 = new Runner(1, tm);
+        r2 = new Runner(2, tm);
+        r3 = new Runner(3, tm);
+        r4 = new Runner(4, tm);
+        
+        runners = new ArrayList<>();
+        bars = new ArrayList<>();
+        
+        runners.add(r1);
+        runners.add(r2);
+        runners.add(r3);
+        runners.add(r4);
+        
+        bars.add(progressBar1);
+        bars.add(progressBar2);
+        bars.add(progressBar3);
+        bars.add(progressBar4);
+        
+        tm.setRunners(runners);
     }
 
     /**
@@ -32,10 +62,10 @@ public class Form extends javax.swing.JFrame {
 
         jProgressBar4 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jProgressBar2 = new javax.swing.JProgressBar();
-        jProgressBar3 = new javax.swing.JProgressBar();
-        jProgressBar5 = new javax.swing.JProgressBar();
+        progressBar2 = new javax.swing.JProgressBar();
+        progressBar1 = new javax.swing.JProgressBar();
+        progressBar3 = new javax.swing.JProgressBar();
+        progressBar4 = new javax.swing.JProgressBar();
         btnStart = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
@@ -60,13 +90,13 @@ public class Form extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(233, 248, 249));
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 500));
 
-        jProgressBar1.setPreferredSize(new java.awt.Dimension(450, 4));
+        progressBar2.setPreferredSize(new java.awt.Dimension(450, 4));
 
-        jProgressBar2.setPreferredSize(new java.awt.Dimension(450, 4));
+        progressBar1.setPreferredSize(new java.awt.Dimension(450, 4));
 
-        jProgressBar3.setPreferredSize(new java.awt.Dimension(450, 4));
+        progressBar3.setPreferredSize(new java.awt.Dimension(450, 4));
 
-        jProgressBar5.setPreferredSize(new java.awt.Dimension(450, 4));
+        progressBar4.setPreferredSize(new java.awt.Dimension(450, 4));
 
         btnStart.setText("Start");
         btnStart.addActionListener(this::btnStartActionPerformed);
@@ -212,14 +242,14 @@ public class Form extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jProgressBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(progressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(progressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(progressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(progressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(42, 42, 42)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,19 +263,19 @@ public class Form extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jProgressBar5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(progressBar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -272,7 +302,19 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        // TODO add your handling code here:
+        btnStart.setEnabled(false);
+        r1.start();
+        r2.start();
+        r3.start();
+        r4.start();
+        
+        new Timer(100, e -> {
+            for (int i = 0; i < 4; i++) {
+                int value = runners.get(i).getValue();
+                bars.get(i).setValue(value);
+                bars.get(i).setString("Runner " + i + ": " + value + "%");
+            }
+        }).start();
     }//GEN-LAST:event_btnStartActionPerformed
 
     /**
@@ -319,10 +361,10 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JProgressBar jProgressBar4;
-    private javax.swing.JProgressBar jProgressBar5;
+    private javax.swing.JProgressBar progressBar1;
+    private javax.swing.JProgressBar progressBar2;
+    private javax.swing.JProgressBar progressBar3;
+    private javax.swing.JProgressBar progressBar4;
     // End of variables declaration//GEN-END:variables
 }

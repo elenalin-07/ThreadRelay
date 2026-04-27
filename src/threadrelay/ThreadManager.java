@@ -4,6 +4,8 @@
  */
 package threadrelay;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author zxt02
@@ -11,6 +13,7 @@ package threadrelay;
 public class ThreadManager {
     private Testimone t;
     private int nRunner;
+    private ArrayList<Runner> runners;
     
     public ThreadManager(Testimone t, int nRunner){
         this.t = t;
@@ -23,8 +26,15 @@ public class ThreadManager {
         }
     }
     
-    public synchronized void passa(){
+    public void setRunners(ArrayList<Runner> runners){
+        this.runners = runners;
+    }
+    
+    public synchronized void passa() {
         t.setTurno(t.getTurno() + 1);
         notifyAll();
+    }
+    
+    public synchronized void aggiorna(){
     }
 }

@@ -29,23 +29,27 @@ public class Runner extends Thread{
     
     @Override
     public void run(){
-        for (int i = 0; i < 3; i++) {
-            try {
-                tm.attendi(id);
-            } catch (InterruptedException ex) {
-                System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
-
+        try {
+            tm.attendi(id);
+        } catch (InterruptedException ex) {
+            System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+        while (v < 100) {
+            v += 10;
+            
             System.out.println("Runner " + id + " corre...");
+            
+            if (v == 90) {
+                tm.passa();
+                System.out.println("Runner " + id + " passa...");
+            }
+            
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Runner " + id + " passa il testimone");
-
-            tm.passa();
         }
     }
 }
