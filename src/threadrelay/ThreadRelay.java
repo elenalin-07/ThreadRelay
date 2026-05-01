@@ -15,6 +15,7 @@ public class ThreadRelay {
      */
     public static void main(String[] args) {
         Form f = new Form();
+        f.setSize(750, 520);
         f.setVisible(true);
     }
     

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 
 public class ThreadManager {
-
     private Testimone t;
     private ArrayList<Observer> observers = new ArrayList<>();
 
