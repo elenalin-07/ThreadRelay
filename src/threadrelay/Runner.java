@@ -34,7 +34,7 @@ public class Runner extends Thread implements Observer {
     
     public synchronized void continua(){
         run = true;
-        notify();
+        notifyAll();
     }
     
     @Override
@@ -58,7 +58,7 @@ public class Runner extends Thread implements Observer {
                 }
             }
              
-            tm.notifyProgress(id, v); // 🔥 notifica GUI
+            tm.notifyProgress(id, v);
 
             if (v == 90) {
                 tm.passa();
@@ -75,6 +75,6 @@ public class Runner extends Thread implements Observer {
 
     @Override
     public void update(int runnerId, int value) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

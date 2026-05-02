@@ -54,6 +54,9 @@ public class Form extends javax.swing.JFrame implements Observer {
         labels.add(lblR2);
         labels.add(lblR3);
         labels.add(lblR4);
+        
+        btnContinue.setEnabled(false);
+        btnRestart.setEnabled(false);
     }
 
     @Override
@@ -161,6 +164,8 @@ public class Form extends javax.swing.JFrame implements Observer {
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204)));
 
+        lblR1.setText("0");
+
         jLabel2.setText("Runner1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -189,6 +194,8 @@ public class Form extends javax.swing.JFrame implements Observer {
 
         jLabel6.setText("Runner3");
 
+        lblR3.setText("0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -215,6 +222,8 @@ public class Form extends javax.swing.JFrame implements Observer {
 
         jLabel8.setText("Runner4");
 
+        lblR4.setText("0");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -238,6 +247,8 @@ public class Form extends javax.swing.JFrame implements Observer {
 
         jPanel5.setBackground(new java.awt.Color(153, 204, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204)));
+
+        lblR2.setText("0");
 
         jLabel4.setText("Runner2");
 
@@ -353,19 +364,45 @@ public class Form extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_cmbVelocitaActionPerformed
 
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
-        // TODO add your handling code here:
+        for (JProgressBar bar : bars) {
+            bar.setValue(0);
+        }
+        for (JLabel lbl : labels) {
+            lbl.setText("0");
+        }
+
+        t = new Testimone(1);
+        tm = new ThreadManager(t);
+        tm.addObserver(this);
+
+        runners.clear();
+
+        for (int i = 1; i < 5; i++) {
+            Runner r = new Runner(i, tm);
+            r.setVelocita(velocita());
+            runners.add(r);
+            r.start();
+        }
+
+        btnContinue.setEnabled(false);
+        btnRestart.setEnabled(false);
     }//GEN-LAST:event_btnRestartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
         for (Runner r : runners) {
             r.stoppa();
         }
+        btnContinue.setEnabled(true);
+        btnRestart.setEnabled(true);
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
         for (Runner r : runners) {
+            r.setVelocita(velocita());
             r.continua();
         }
+        btnContinue.setEnabled(false);
+        btnRestart.setEnabled(false);
     }//GEN-LAST:event_btnContinueActionPerformed
 
     /**

@@ -25,7 +25,7 @@ public class ThreadManager {
             wait();
         }
     }
-
+    
     public synchronized void passa() {
         t.setTurno(t.getTurno() + 1);
         notifyAll();
@@ -40,4 +40,5 @@ public class ThreadManager {
             o.update(id, value);
         }
     }
+    
 }
